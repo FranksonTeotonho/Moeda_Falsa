@@ -43,7 +43,7 @@ def moeda_divisao_conquista(moedas, start,end):
             if(pesoEsquerdo > pesoDireito):
                 return moeda_divisao_conquista(moedas,start,meio-1)
             if(pesoDireito > pesoEsquerdo):
-                moeda_divisao_conquista(moedas,meio,end)
+                return moeda_divisao_conquista(moedas,meio,end)
 
         else:
             print("\n -----impar----- \n")
@@ -63,7 +63,7 @@ def moeda_divisao_conquista(moedas, start,end):
 
 def main():
 
-    moedas = [10,10,10,10,11,10,10,10,10]
+    moedas = [10,10,10,10,10,11]
 
     print("A moeda falsa esta na posição: ",moeda_divisao_conquista(moedas,0,5))
 
