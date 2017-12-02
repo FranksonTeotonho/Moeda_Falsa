@@ -3,6 +3,30 @@ import pygame,sys, os
 #Inicializando pygame
 pygame.init()
 
+
+#Função responsavel por carregar imagens
+def load_png(name):
+    """ Load image and return image object"""
+    fullname = os.path.join('resource', name)
+    try:
+        image = pygame.image.load(fullname)
+        if image.get_alpha() is None:
+            image = image.convert()
+        else:
+            image = image.convert_alpha()
+    except pygame.error as message:
+        print ('Cannot load image:', fullname)
+        pass
+
+    return image, image.get_rect()
+
+#Classe balanca
+class balance(pygame.sprite.Sprite):
+
+    def __init__(self):
+        print()
+
+
 #Algoritmo força bruta
 def moeda_forca_bruta(moedas):
 
@@ -67,22 +91,6 @@ def moeda_decremento_conquista(moedas, start,end):
                 return moeda_decremento_conquista(moedas, start, meio - 1)
             if(pesoDireito > pesoEsquerdo):
                 return moeda_decremento_conquista(moedas, meio + 1, end)
-
-#Função responsavel por carregar imagens
-def load_png(name):
-    """ Load image and return image object"""
-    fullname = os.path.join('resource', name)
-    try:
-        image = pygame.image.load(fullname)
-        if image.get_alpha() is None:
-            image = image.convert()
-        else:
-            image = image.convert_alpha()
-    except pygame.error as message:
-        print ('Cannot load image:', fullname)
-        pass
-
-    return image, image.get_rect()
 
 #Funcao principal
 def main():
