@@ -1,3 +1,7 @@
+import pygame,sys, os
+
+pygame.init()
+
 def moeda_forca_bruta(moedas):
 
     n = len(moedas)
@@ -61,11 +65,54 @@ def moeda_decremento_conquista(moedas, start,end):
             if(pesoDireito > pesoEsquerdo):
                 return moeda_decremento_conquista(moedas, meio + 1, end)
 
+
+def load_png(name):
+    """ Load image and return image object"""
+    fullname = os.path.join('resource', name)
+    try:
+        image = pygame.image.load(fullname)
+        if image.get_alpha() is None:
+            image = image.convert()
+        else:
+            image = image.convert_alpha()
+    except pygame.error as message:
+        print ('Cannot load image:', fullname)
+        pass
+
+    return image, image.get_rect()
+
 def main():
 
     moedas = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,10,10,10]
 
-    print("A moeda falsa esta na posição: ",moeda_decremento_conquista(moedas,0,18))
+    # Initialise screen
+    screen = pygame.display.set_mode((800, 600))
+    #Title
+    pygame.display.set_caption('Moeda falsa')
+
+    # Fill background
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    backgroundImage, backgroundImageSquare = load_png("dollar.png")
+    background.blit(backgroundImage, backgroundImageSquare)
+
+    # Blit everything to the screen
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
+
+    # Event loop
+    while 1:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            elif event.type == pygame.KEYDOWN:
+                if(event.key == pygame.K_b):
+                    print("A moeda falsa esta na posição[B]: ", moeda_forca_bruta(moedas))
+                if( event.key == pygame.K_d):
+                    print("A moeda falsa esta na posição[D]: ", moeda_decremento_conquista(moedas, 0, 18))
+
+        screen.blit(background, (0, 0))
+        pygame.display.flip()
 
 
 if __name__ == '__main__':
