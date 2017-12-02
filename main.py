@@ -20,7 +20,7 @@ def soma(elementos):
     return sum
 
 
-def moeda_divisao_conquista(moedas, start,end):
+def moeda_decremento_conquista(moedas, start,end):
 
     n = end - start + 1
     print("\nstart: ",start)
@@ -41,9 +41,9 @@ def moeda_divisao_conquista(moedas, start,end):
             print('O peso do lado direito é: ', pesoDireito)
 
             if(pesoEsquerdo > pesoDireito):
-                return moeda_divisao_conquista(moedas,start,meio-1)
+                return moeda_decremento_conquista(moedas,start,meio-1)
             if(pesoDireito > pesoEsquerdo):
-                return moeda_divisao_conquista(moedas,meio,end)
+                return moeda_decremento_conquista(moedas,meio,end)
 
         else:
             print("\n -----impar----- \n")
@@ -57,15 +57,15 @@ def moeda_divisao_conquista(moedas, start,end):
             if (pesoEsquerdo == pesoDireito):
                 return meio
             if(pesoEsquerdo > pesoDireito):
-                return moeda_divisao_conquista(moedas, start, meio - 1)
+                return moeda_decremento_conquista(moedas, start, meio - 1)
             if(pesoDireito > pesoEsquerdo):
-                return moeda_divisao_conquista(moedas, meio + 1, end)
+                return moeda_decremento_conquista(moedas, meio + 1, end)
 
 def main():
 
-    moedas = [10,10,10,10,10,11,10,10,10]
+    moedas = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,10,10,10]
 
-    print("A moeda falsa esta na posição: ",moeda_divisao_conquista(moedas,0,8))
+    print("A moeda falsa esta na posição: ",moeda_decremento_conquista(moedas,0,18))
 
 
 if __name__ == '__main__':
