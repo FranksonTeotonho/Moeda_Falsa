@@ -1,5 +1,6 @@
 import pygame,sys, os
 
+#Inicializando pygame
 pygame.init()
 
 #Algoritmo força bruta
@@ -117,6 +118,6 @@ def main():
         screen.blit(background, (0, 0))
         pygame.display.flip()
 
-
+#Execução
 if __name__ == '__main__':
     main()
