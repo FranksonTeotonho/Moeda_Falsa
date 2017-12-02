@@ -2,6 +2,7 @@ import pygame,sys, os
 
 pygame.init()
 
+#Algoritmo força bruta
 def moeda_forca_bruta(moedas):
 
     n = len(moedas)
@@ -14,6 +15,7 @@ def moeda_forca_bruta(moedas):
                 if(moedas[i] > moedas[j]):
                     return i
 
+#Função auxiliar que soma os pesos
 def soma(elementos):
 
     sum = 0
@@ -23,7 +25,7 @@ def soma(elementos):
 
     return sum
 
-
+#Algoritmo por decremento e conquista
 def moeda_decremento_conquista(moedas, start,end):
 
     n = end - start + 1
@@ -65,7 +67,7 @@ def moeda_decremento_conquista(moedas, start,end):
             if(pesoDireito > pesoEsquerdo):
                 return moeda_decremento_conquista(moedas, meio + 1, end)
 
-
+#Função responsavel por carregar imagens
 def load_png(name):
     """ Load image and return image object"""
     fullname = os.path.join('resource', name)
@@ -81,6 +83,7 @@ def load_png(name):
 
     return image, image.get_rect()
 
+#Funcao principal
 def main():
 
     moedas = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,10,10,10]
