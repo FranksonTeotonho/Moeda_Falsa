@@ -36,9 +36,9 @@ def moeda_divisao_conquista(moedas, start,end):
             meio = (n // 2) + start
 
             pesoEsquerdo = soma(moedas[start:meio])
-            print(pesoEsquerdo)
+            print('O peso do lado esquerdo é: ', pesoEsquerdo)
             pesoDireito = soma(moedas[meio:end+1])
-            print(pesoDireito)
+            print('O peso do lado direito é: ', pesoDireito)
 
             if(pesoEsquerdo > pesoDireito):
                 return moeda_divisao_conquista(moedas,start,meio-1)
@@ -50,9 +50,9 @@ def moeda_divisao_conquista(moedas, start,end):
             meio = (n//2) + start
 
             pesoEsquerdo = soma(moedas[start:meio])
-            print(pesoEsquerdo)
+            print('O peso do lado esquerdo é: ' ,pesoEsquerdo)
             pesoDireito = soma(moedas[meio+1:end+1])
-            print(pesoDireito)
+            print('O peso do lado direito é: ' ,pesoDireito)
 
             if (pesoEsquerdo == pesoDireito):
                 return meio
@@ -63,9 +63,9 @@ def moeda_divisao_conquista(moedas, start,end):
 
 def main():
 
-    moedas = [10,10,10,10,10,11]
+    moedas = [10,10,10,10,10,11,10,10,10]
 
-    print("A moeda falsa esta na posição: ",moeda_divisao_conquista(moedas,0,5))
+    print("A moeda falsa esta na posição: ",moeda_divisao_conquista(moedas,0,8))
 
 
 if __name__ == '__main__':
