@@ -20,56 +20,52 @@ def soma(elementos):
     return sum
 
 
-def moeda_divisao_conquista(moedas, start, end):
+def moeda_divisao_conquista(moedas, start,end):
 
+    n = end - start + 1
+    print("\nstart: ",start)
+    print("end: ", end)
+    print("n: ",n,"\n")
 
-    tamanho = len(moedas[start:end+1])
-    print(tamanho)
+    if n == 1:
+        print("---caso base---")
+        return start
+    else:
+        if(n%2 == 0):
+            print("\n -----par----- \n")
+            meio = (n // 2) + start
 
-    if(tamanho%2 == 0):
+            pesoEsquerdo = soma(moedas[start:meio])
+            print(pesoEsquerdo)
+            pesoDireito = soma(moedas[meio:end+1])
+            print(pesoDireito)
 
-        somaPrimeiraParte = soma(moedas[start:tamanho//2])
-        somaSegundaParte = soma(moedas[tamanho//2:end+1])
+            if(pesoEsquerdo > pesoDireito):
+                return moeda_divisao_conquista(moedas,start,meio-1)
+            if(pesoDireito > pesoEsquerdo):
+                moeda_divisao_conquista(moedas,meio,end)
 
-        print("soma primeira parte: ",somaPrimeiraParte)
-        print("soma segunda parte: ", somaSegundaParte)
+        else:
+            print("\n -----impar----- \n")
+            meio = (n//2) + start
 
-        if (somaPrimeiraParte > somaSegundaParte):
-            print("Ta na primeira parte")
-            return moeda_divisao_conquista(moedas, start, (tamanho//2) - 1)
-        elif (somaPrimeiraParte < somaSegundaParte):
-            print("Ta na segunda parte")
-            return moeda_divisao_conquista(moedas,tamanho//2, end)
+            pesoEsquerdo = soma(moedas[start:meio])
+            print(pesoEsquerdo)
+            pesoDireito = soma(moedas[meio+1:end+1])
+            print(pesoDireito)
 
-    elif(tamanho%2 == 1):
-        if(tamanho != 1):
-            somaPrimeiraParte = soma(moedas[start:tamanho // 2])
-            somaSegundaParte = soma(moedas[(tamanho // 2)+1:end + 1])
-
-            TermoMeio = moedas[tamanho//2]
-
-            PosicaoTermoMeio = tamanho//2
-
-            print("soma primeira parte: ", somaPrimeiraParte)
-            print("soma segunda parte: ", somaSegundaParte)
-            print("peso termo central: ",TermoMeio)
-            print("posicao: ",PosicaoTermoMeio)
-
-            if(somaPrimeiraParte == somaSegundaParte):
-                print("É o elemento central")
-                return PosicaoTermoMeio
-            elif(somaPrimeiraParte > somaSegundaParte):
-                print("Ta na primeira parte")
-            elif (somaPrimeiraParte < somaSegundaParte):
-                print("Ta na segunda parte")
-        elif(tamanho == 1):
-            return end
+            if (pesoEsquerdo == pesoDireito):
+                return meio
+            if(pesoEsquerdo > pesoDireito):
+                return moeda_divisao_conquista(moedas, start, meio - 1)
+            if(pesoDireito > pesoEsquerdo):
+                return moeda_divisao_conquista(moedas, meio + 1, end)
 
 def main():
 
-    moedas = [10,10,10,11,10]
+    moedas = [10,10,10,10,11,10,10,10,10]
 
-    print("moeda falsa")
+    print("A moeda falsa esta na posição: ",moeda_divisao_conquista(moedas,0,5))
 
 
 if __name__ == '__main__':
