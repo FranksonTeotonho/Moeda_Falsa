@@ -22,8 +22,9 @@ def load_png(name):
 
 class Moeda_falsa():
 
-
-
+    #Fontes
+    font = pygame.font.Font(None, 60)
+    result = pygame.font.Font(None, 100)
     # Loading Imagens
 
     backgroundImage, backgroundImageRect = load_png("dollar.png")
@@ -80,26 +81,39 @@ class Moeda_falsa():
                             time.sleep(1)
                             self.resetScreen()
                             self.cleanScreen()
+                            self.label(indice=str(i), posicao=(120, 70))
+                            self.label(indice=str(j), posicao=(520, 70))
                             self.background.blit(self.balanceLeftSingle, (75, 100))
                             self.render()
                         elif(moedas[i] < moedas[j]):
                             time.sleep(1)
                             self.resetScreen()
                             self.cleanScreen()
+                            self.label(indice=str(i), posicao=(120, 70))
+                            self.label(indice=str(j), posicao=(520, 70))
                             self.background.blit(self.balanceRightSingle, (75, 100))
                             self.render()
-                        MoedaFalsa =  i
+
+                        aux =  i
 
                     else:
 
                         time.sleep(1)
                         self.resetScreen()
                         self.cleanScreen()
+                        self.label(indice=str(i), posicao=(120, 70))
+                        self.label(indice=str(j), posicao=(520, 70))
                         self.background.blit(self.balanceEqualSingle, (75, 100))
                         self.render()
 
+        print("A moeda falsa é: ",aux)
 
-        return MoedaFalsa
+        time.sleep(1)
+        self.resetScreen()
+        self.cleanScreen()
+        self.showResult(indice = str(aux))
+        self.render()
+        time.sleep(5)
 
     #Função auxiliar que soma os pesos
     def soma(self, elementos):
@@ -162,10 +176,21 @@ class Moeda_falsa():
     def cleanScreen(self):
         self.background.blit(self.backgroundImage, self.backgroundImageRect)
 
+    def label(self,indice, posicao):
+        # Display some text
+        text = self.font.render("Moeda: "+ indice , 1, (10,10,10))
+        self.background.blit(text, posicao)
+
+    def showResult(self, indice):
+
+        text = self.result.render("A Moeda falsa é: " + indice, 1, (10, 10, 10))
+        self.background.blit(text, (100,250))
+
+
 #Funcao principal
 def main():
 
-    moedas = [10,10,11,10,10]
+    moedas = [10,10,11]
 
     mf = Moeda_falsa()
 
@@ -177,6 +202,7 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if(event.key == pygame.K_b):
                     mf.moeda_forca_bruta(moedas)
+
     mf.resetScreen()
     mf.render()
 
