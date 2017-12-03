@@ -107,7 +107,6 @@ class Moeda_falsa():
                         self.render()
 
         print("A moeda falsa é: ",aux)
-
         time.sleep(1)
         self.resetScreen()
         self.cleanScreen()
@@ -135,6 +134,7 @@ class Moeda_falsa():
 
         if n == 1:
             print("---caso base---")
+            print(start)
             return start
         else:
             if(n%2 == 0):
@@ -146,9 +146,31 @@ class Moeda_falsa():
                 pesoDireito = self.soma(elementos = moedas[meio:end+1])
                 print('O peso do lado direito é: ', pesoDireito)
 
+                time.sleep(1)
+                self.resetScreen()
+                self.cleanScreen()
+                self.background.blit(self.balanceEqual, (75, 100))
+                self.render()
+
                 if(pesoEsquerdo > pesoDireito):
+                    time.sleep(1)
+                    self.resetScreen()
+                    self.cleanScreen()
+                    self.label2(indice=str(pesoEsquerdo), posicao=(120, 70))
+                    self.label2(indice=str(pesoDireito), posicao=(520, 70))
+                    self.background.blit(self.balanceLeftPile, (75, 100))
+                    self.render()
+
                     return self.moeda_decremento_conquista(moedas = moedas,start = start,end = meio-1)
                 if(pesoDireito > pesoEsquerdo):
+                    time.sleep(1)
+                    self.resetScreen()
+                    self.cleanScreen()
+                    self.label2(indice=str(pesoEsquerdo), posicao=(120, 70))
+                    self.label2(indice=str(pesoDireito), posicao=(520, 70))
+                    self.background.blit(self.balanceRightPile, (75, 100))
+                    self.render()
+
                     return self.moeda_decremento_conquista(moedas = moedas,start = meio,end = end)
 
             else:
@@ -160,11 +182,41 @@ class Moeda_falsa():
                 pesoDireito = self.soma(elementos = moedas[meio+1:end+1])
                 print('O peso do lado direito é: ' ,pesoDireito)
 
+                time.sleep(1)
+                self.resetScreen()
+                self.cleanScreen()
+                self.background.blit(self.balanceEqual, (75, 100))
+                self.render()
+
                 if (pesoEsquerdo == pesoDireito):
+                    time.sleep(1)
+                    self.resetScreen()
+                    self.cleanScreen()
+                    self.label2(indice=str(pesoEsquerdo), posicao=(120, 70))
+                    self.label2(indice=str(pesoDireito), posicao=(520, 70))
+                    self.background.blit(self.balanceEqualPile, (75, 100))
+                    self.render()
+
                     return meio
                 if(pesoEsquerdo > pesoDireito):
+                    time.sleep(1)
+                    self.resetScreen()
+                    self.cleanScreen()
+                    self.label2(indice=str(pesoEsquerdo), posicao=(120, 70))
+                    self.label2(indice=str(pesoDireito), posicao=(520, 70))
+                    self.background.blit(self.balanceLeftPile, (75, 100))
+                    self.render()
+
                     return self.moeda_decremento_conquista(moedas = moedas,start = start,end = meio - 1)
                 if(pesoDireito > pesoEsquerdo):
+                    time.sleep(1)
+                    self.resetScreen()
+                    self.cleanScreen()
+                    self.label2(indice=str(pesoEsquerdo), posicao=(120, 70))
+                    self.label2(indice=str(pesoDireito), posicao=(520, 70))
+                    self.background.blit(self.balanceRightPile, (75, 100))
+                    self.render()
+
                     return self.moeda_decremento_conquista(moedas = moedas,start = meio + 1, end = end)
 
     def render(self):
@@ -181,16 +233,20 @@ class Moeda_falsa():
         text = self.font.render("Moeda: "+ indice , 1, (10,10,10))
         self.background.blit(text, posicao)
 
+    def label2(self, indice, posicao):
+        # Display some text
+        text = self.font.render("Peso: " + indice, 1, (10, 10, 10))
+        self.background.blit(text, posicao)
+
     def showResult(self, indice):
 
         text = self.result.render("A Moeda falsa é: " + indice, 1, (10, 10, 10))
         self.background.blit(text, (100,250))
 
-
 #Funcao principal
 def main():
 
-    moedas = [10,10,11]
+    moedas = [10,10,10,11,10]
 
     mf = Moeda_falsa()
 
@@ -202,6 +258,8 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if(event.key == pygame.K_b):
                     mf.moeda_forca_bruta(moedas)
+                elif(event.key == pygame.K_d):
+                    mf.moeda_decremento_conquista(moedas = moedas,start=0,end =4)
 
     mf.resetScreen()
     mf.render()
