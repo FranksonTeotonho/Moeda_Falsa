@@ -306,36 +306,29 @@ class Moeda_falsa():
         else:
           pass
 
-    def display_box(self, message,x,y):
+    def display_box(self, message, label,x,y):
       "Print a message in a box in the middle of the screen"
       fontobject = pygame.font.Font(None,40)
-      '''
-      pygame.draw.rect(self.screen, (255,255,255),
-                       ((self.screen.get_width() / 2) - 100,
-                        (self.screen.get_height() / 2) - 10,
-                        200,20), 0)
-      pygame.draw.rect(self.screen, (255,255,255),
-                       ((self.screen.get_width() / 2) - 102,
-                        (self.screen.get_height() / 2) - 12,
-                        204,24), 1)
 
-      '''
       pygame.draw.rect(self.screen, (255, 255, 255),
                        (x,y,
                         200, 50), 0)
-      pygame.draw.rect(self.screen, (255, 255, 255),
+      pygame.draw.rect(self.screen, (0, 0, 0),
                        (x,y,
-                        204, 54), 1)
+                        200, 50), 1)
+      self.screen.blit(fontobject.render(label, 1, (0, 0, 0)),
+                       (x, y - 25))
+
       if len(message) != 0:
         self.screen.blit(fontobject.render(message, 1, (0,0,0)),
                     (x+80, y+10))
       pygame.display.flip()
 
-    def ask(self, question,x,y):
+    def ask(self, question,label,x,y):
       "ask(screen, question) -> answer"
       pygame.font.init()
       current_string = []
-      self.display_box((question + "".join(current_string)),x,y)
+      self.display_box((question + "".join(current_string)),label,x,y)
       while 1:
         inkey = self.get_key()
         if inkey == pygame.K_BACKSPACE:
@@ -346,7 +339,7 @@ class Moeda_falsa():
           current_string.append("_")
         elif inkey <= 127:
           current_string.append(chr(inkey))
-        self.display_box((question + "".join(current_string)),x,y)
+        self.display_box((question + "".join(current_string)),label,x,y)
       return "".join(current_string)
 
 #Funcao principal
@@ -372,8 +365,8 @@ def main():
                     mf.cleanScreen()
                     mf.render()
 
-                    quantidade = int(mf.ask(question="", x=300, y=200))
-                    posicao = int(mf.ask(question="", x=300, y=300))
+                    quantidade = int(mf.ask(question="",label="Quantidade:", x=300, y=200))
+                    posicao = int(mf.ask(question="",label="Posição:", x=300, y=300))
                     moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
 
                     mf.moeda_forca_bruta(moedas)
@@ -387,8 +380,8 @@ def main():
                     mf.cleanScreen()
                     mf.render()
 
-                    quantidade = int(mf.ask(question="", x=300, y=200))
-                    posicao = int(mf.ask(question="", x=300, y=300))
+                    quantidade = int(mf.ask(question="", label="Quantidade:", x=300, y=200))
+                    posicao = int(mf.ask(question="", label="Posição:", x=300, y=300))
 
                     moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
                     start = 0
