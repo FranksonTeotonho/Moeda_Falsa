@@ -26,6 +26,8 @@ class Moeda_falsa():
     font = pygame.font.Font(None, 60)
     fontContinuar = pygame.font.Font(None, 40)
     result = pygame.font.Font(None, 100)
+    fontTitle = pygame.font.Font(None, 70)
+
     # Loading Imagens
     #Imagem de background
     backgroundImage, backgroundImageRect = load_png("dollar.png")
@@ -292,9 +294,13 @@ class Moeda_falsa():
         self.background.blit(text, (100,250))
 
     def showEnunciado(self):
-        enunciado = "teste"
-        text = self.result.render(enunciado, 1, (10, 10, 10))
-        self.background.blit(text, (50, 50))
+        text1 = self.fontTitle.render("Problema da Moeda Falsa", 1, (10, 10, 10))
+        text2 = self.fontContinuar.render("Pressione B para força bruta", 1, (10, 10, 10))
+        text3 = self.fontContinuar.render("Pressione D para decremento e conquista", 1, (10, 10, 10))
+
+        self.background.blit(text1, (100, 20))
+        self.background.blit(text2, (200,80))
+        self.background.blit(text3, (120,120))
 
     def vetorInput(self, quatidade, posicao):
         x = quatidade * [10]
@@ -306,14 +312,15 @@ class Moeda_falsa():
 ######TESTE############
 
     def get_key(self):
-      while 1:
-        event = pygame.event.poll()
-        if event.type == pygame.KEYDOWN:
-          return event.key
-        elif(event.type == pygame.QUIT):
-            sys.exit()
-        else:
-          pass
+
+        while 1:
+            event = pygame.event.poll()
+            if event.type == pygame.KEYDOWN:
+                return event.key
+            elif(event.type == pygame.QUIT):
+                sys.exit()
+            else:
+                pass
 
     def display_box(self, message, label,x,y):
       "Print a message in a box in the middle of the screen"
@@ -326,7 +333,7 @@ class Moeda_falsa():
                        (x,y,
                         200, 50), 1)
       self.screen.blit(fontobject.render(label, 1, (0, 0, 0)),
-                       (x, y - 25))
+                       (x-50, y - 25))
 
       if len(message) != 0:
         self.screen.blit(fontobject.render(message, 1, (0,0,0)),
@@ -335,6 +342,7 @@ class Moeda_falsa():
 
     def ask(self, question,label,x,y):
       "ask(screen, question) -> answer"
+
       pygame.font.init()
       current_string = []
       self.display_box((question + "".join(current_string)),label,x,y)
@@ -360,7 +368,6 @@ def main():
     mf = Moeda_falsa()
     # Event loop
     while 1:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -374,8 +381,8 @@ def main():
                     mf.cleanScreen()
                     mf.render()
 
-                    quantidade = int(mf.ask(question="",label="Quantidade:", x=300, y=200))
-                    posicao = int(mf.ask(question="",label="Posição:", x=300, y=300))
+                    quantidade = int(mf.ask(question="",label="Quantidade de moedas", x=300, y=200))
+                    posicao = int(mf.ask(question="",label="Posição da moeda falsa:", x=300, y=300))
                     moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
 
                     mf.moeda_forca_bruta(moedas)
@@ -389,8 +396,8 @@ def main():
                     mf.cleanScreen()
                     mf.render()
 
-                    quantidade = int(mf.ask(question="", label="Quantidade:", x=300, y=200))
-                    posicao = int(mf.ask(question="", label="Posição:", x=300, y=300))
+                    quantidade = int(mf.ask(question="", label="Quantidade de moedas:", x=300, y=200))
+                    posicao = int(mf.ask(question="", label="Posição da moeda falsa:", x=300, y=300))
 
                     moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
                     start = 0
