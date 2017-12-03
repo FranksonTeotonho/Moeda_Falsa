@@ -292,11 +292,14 @@ class Moeda_falsa():
 def main():
 
     #moedas = [10,10,10,11,10,10,10]
+    quantidade = 5
+    posicao = 3
 
     mf = Moeda_falsa()
 
-    moedas = mf.vetorInput(quatidade=7,posicao=3)
-
+    moedas = mf.vetorInput(quatidade=quantidade,posicao=posicao)
+    start = 0
+    end = quantidade - 1
     # Event loop
     while 1:
         for event in pygame.event.get():
@@ -306,7 +309,7 @@ def main():
                 if(event.key == pygame.K_b):
                     mf.moeda_forca_bruta(moedas)
                 elif(event.key == pygame.K_d):
-                    mf.moeda_decremento_conquista(moedas = moedas,start=0,end =6)
+                    mf.moeda_decremento_conquista(moedas = moedas,start=start,end =end)
 
     mf.resetScreen()
     mf.render()
