@@ -75,15 +75,20 @@ class Moeda_falsa():
                     self.background.blit(self.balanceEqual, (75, 100))
                     self.render()
 
-                    if(moedas[i] > moedas[j]):
-
-                        time.sleep(1)
-                        self.resetScreen()
-                        self.cleanScreen()
-                        self.background.blit(self.balanceLeftSingle, (75, 100))
-                        self.render()
-
-                        return i
+                    if((moedas[i] > moedas[j]) or (moedas[i] < moedas[j])):
+                        if(moedas[i] > moedas[j]):
+                            time.sleep(1)
+                            self.resetScreen()
+                            self.cleanScreen()
+                            self.background.blit(self.balanceLeftSingle, (75, 100))
+                            self.render()
+                        elif(moedas[i] < moedas[j]):
+                            time.sleep(1)
+                            self.resetScreen()
+                            self.cleanScreen()
+                            self.background.blit(self.balanceRightSingle, (75, 100))
+                            self.render()
+                        MoedaFalsa =  i
 
                     else:
 
@@ -92,6 +97,9 @@ class Moeda_falsa():
                         self.cleanScreen()
                         self.background.blit(self.balanceEqualSingle, (75, 100))
                         self.render()
+
+
+        return MoedaFalsa
 
     #Função auxiliar que soma os pesos
     def soma(self, elementos):
@@ -157,7 +165,7 @@ class Moeda_falsa():
 #Funcao principal
 def main():
 
-    moedas = [10,10,10,10,11]
+    moedas = [10,10,11,10,10]
 
     mf = Moeda_falsa()
 
