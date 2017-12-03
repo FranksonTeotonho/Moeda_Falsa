@@ -27,6 +27,7 @@ class Moeda_falsa():
     fontContinuar = pygame.font.Font(None, 40)
     result = pygame.font.Font(None, 100)
     fontTitle = pygame.font.Font(None, 70)
+    fontWarning = pygame.font.Font(None, 60)
 
     # Loading Imagens
     #Imagem de background
@@ -304,12 +305,28 @@ class Moeda_falsa():
         self.background.blit(text1, (100, 20))
         self.background.blit(text2, (200,80))
         self.background.blit(text3, (120,120))
+    def showWarning(self):
+
+        text1 = self.fontWarning.render("O intervalo da posição é 0 até n-1 ", 1, (255, 0, 0))
+        text2 = self.fontContinuar.render("Pressione B para força bruta", 1, (10, 10, 10))
+        text3 = self.fontContinuar.render("Pressione D para decremento e conquista", 1, (10, 10, 10))
+
+        self.background.blit(text1, (100, 20))
+        self.background.blit(text2, (200, 80))
+        self.background.blit(text3, (120, 120))
 
     def vetorInput(self, quatidade, posicao):
-        x = quatidade * [10]
-        x[posicao] = 11
 
-        return x
+        if(posicao > quatidade - 1):
+            sucesso = 0
+            x = []
+            print("A posição tem que estar no range")
+        else:
+            sucesso = 1
+            x = quatidade * [10]
+            x[posicao] = 11
+
+        return x,sucesso
 
 
 ######TESTE############
@@ -355,9 +372,7 @@ class Moeda_falsa():
           current_string = current_string[0:-1]
         elif inkey == pygame.K_RETURN:
           break
-        elif inkey == pygame.K_MINUS:
-          current_string.append("_")
-        elif inkey <= 127:
+        elif 48 <=inkey <= 57:
           current_string.append(chr(inkey))
         self.display_box((question + "".join(current_string)),label,x,y)
       return "".join(current_string)
@@ -391,9 +406,23 @@ def main():
 
                     quantidade = int(mf.ask(question="",label="Quantidade de moedas", x=300, y=200))
                     posicao = int(mf.ask(question="",label="Posição da moeda falsa:", x=300, y=300))
-                    moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
 
-                    mf.moeda_forca_bruta(moedas)
+                    moedas, sucesso = mf.vetorInput(quatidade=quantidade, posicao=posicao)
+
+                    if (sucesso == 1):
+                        mf.moeda_forca_bruta(moedas)
+                    elif (sucesso == 0):
+
+                        mf.resetScreen()
+                        mf.cleanScreen()
+                        mf.showWarning()
+                        mf.render()
+
+                        mf.resetScreen()
+                        mf.cleanScreen()
+                        mf.showWarning()
+                        mf.render()
+
 
                 elif(event.key == pygame.K_d):
 
@@ -407,11 +436,23 @@ def main():
                     quantidade = int(mf.ask(question="", label="Quantidade de moedas:", x=300, y=200))
                     posicao = int(mf.ask(question="", label="Posição da moeda falsa:", x=300, y=300))
 
-                    moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
-                    start = 0
-                    end = quantidade - 1
+                    moedas, sucesso = mf.vetorInput(quatidade=quantidade, posicao=posicao)
 
-                    mf.moeda_decremento_conquista(moedas = moedas,start=start,end =end)
+                    if(sucesso == 1):
+                        start = 0
+                        end = quantidade - 1
+
+                        mf.moeda_decremento_conquista(moedas = moedas,start=start,end =end)
+                    elif(sucesso == 0):
+                        mf.resetScreen()
+                        mf.cleanScreen()
+                        mf.showWarning()
+                        mf.render()
+
+                        mf.resetScreen()
+                        mf.cleanScreen()
+                        mf.showWarning()
+                        mf.render()
 
     mf.resetScreen()
     mf.render()
