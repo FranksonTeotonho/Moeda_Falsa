@@ -261,6 +261,9 @@ class Moeda_falsa():
 
     def resetScreen(self):
         self.screen.blit(self.background, (0, 0))
+    def resetTitle(self):
+        self.screen.blit(self.background, (0, 0))
+        self.showEnunciado()
 
     def cleanScreen(self):
         self.background.blit(self.backgroundImage, self.backgroundImageRect)
@@ -366,6 +369,11 @@ def main():
     #posicao = 2
 
     mf = Moeda_falsa()
+    mf.resetTitle()
+    mf.render()
+    #holder
+    mf.resetTitle()
+    mf.render()
     # Event loop
     while 1:
         for event in pygame.event.get():
