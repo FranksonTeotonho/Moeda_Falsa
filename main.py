@@ -85,6 +85,8 @@ class Moeda_falsa():
                             self.label(indice=str(j), posicao=(520, 70))
                             self.background.blit(self.balanceLeftSingle, (75, 100))
                             self.render()
+
+                            aux = i
                         elif(moedas[i] < moedas[j]):
                             time.sleep(1)
                             self.resetScreen()
@@ -94,7 +96,9 @@ class Moeda_falsa():
                             self.background.blit(self.balanceRightSingle, (75, 100))
                             self.render()
 
-                        aux =  i
+                            aux = j
+
+
 
                     else:
 
@@ -111,6 +115,14 @@ class Moeda_falsa():
         self.resetScreen()
         self.cleanScreen()
         self.showResult(indice = str(aux))
+        self.render()
+        time.sleep(3)
+
+        #Holder
+        time.sleep(1)
+        self.resetScreen()
+        self.cleanScreen()
+        self.showResult(indice=str(aux))
         self.render()
         time.sleep(5)
 
@@ -134,7 +146,23 @@ class Moeda_falsa():
 
         if n == 1:
             print("---caso base---")
-            print(start)
+            print("A moeda falsa é: ", start)
+
+            time.sleep(1)
+            self.resetScreen()
+            self.cleanScreen()
+            self.showResult(indice=str(start))
+            self.render()
+            time.sleep(3)
+
+            #Holder
+            time.sleep(1)
+            self.resetScreen()
+            self.cleanScreen()
+            self.showResult(indice=str(start))
+            self.render()
+            time.sleep(5)
+
             return start
         else:
             if(n%2 == 0):
