@@ -26,8 +26,12 @@ class Moeda_falsa():
     font = pygame.font.Font(None, 60)
     result = pygame.font.Font(None, 100)
     # Loading Imagens
-
+    #Imagem de background
     backgroundImage, backgroundImageRect = load_png("dollar.png")
+
+    #MoedaSeparada
+
+    MoedaSeparada, MoedaSeparadaRect = load_png("MoedaSeparada.png")
 
     # Balanças Left
     balanceLeft, balanceLeftRect = load_png("balance_left_heavy.png")
@@ -223,9 +227,11 @@ class Moeda_falsa():
                     self.label2(indice=str(pesoEsquerdo), posicao=(120, 70))
                     self.label2(indice=str(pesoDireito), posicao=(520, 70))
                     self.background.blit(self.balanceEqualPile, (75, 100))
+                    self.label3(posicao=(150,530))
+                    self.background.blit(self.MoedaSeparada, (50, 500))
                     self.render()
 
-                    return meio
+                    return self.moeda_decremento_conquista(moedas = moedas,start = meio ,end = meio)
                 if(pesoEsquerdo > pesoDireito):
                     time.sleep(1)
                     self.resetScreen()
@@ -266,6 +272,11 @@ class Moeda_falsa():
         text = self.font.render("Peso: " + indice, 1, (10, 10, 10))
         self.background.blit(text, posicao)
 
+    def label3(self, posicao):
+        # Display some text
+        text = self.font.render("Moeda separada" , 1, (10,10,10))
+        self.background.blit(text, posicao)
+
     def showResult(self, indice):
 
         text = self.result.render("A Moeda falsa é: " + indice, 1, (10, 10, 10))
@@ -274,7 +285,7 @@ class Moeda_falsa():
 #Funcao principal
 def main():
 
-    moedas = [10,10,10,11,10]
+    moedas = [10,10,10,11,10,10,10]
 
     mf = Moeda_falsa()
 
@@ -287,7 +298,7 @@ def main():
                 if(event.key == pygame.K_b):
                     mf.moeda_forca_bruta(moedas)
                 elif(event.key == pygame.K_d):
-                    mf.moeda_decremento_conquista(moedas = moedas,start=0,end =4)
+                    mf.moeda_decremento_conquista(moedas = moedas,start=0,end =6)
 
     mf.resetScreen()
     mf.render()
