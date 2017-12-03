@@ -24,6 +24,7 @@ class Moeda_falsa():
 
     #Fontes
     font = pygame.font.Font(None, 60)
+    fontContinuar = pygame.font.Font(None, 40)
     result = pygame.font.Font(None, 100)
     # Loading Imagens
     #Imagem de background
@@ -277,9 +278,17 @@ class Moeda_falsa():
         text = self.font.render("Moeda separada" , 1, (10,10,10))
         self.background.blit(text, posicao)
 
+    def labelRepetir(self, posicao, posicao2):
+        # Display some text
+        text = self.fontContinuar.render("Pressione B para força bruta" , 1, (10,10,10))
+        text2 = self.fontContinuar.render("Pressione D para decremento e conquista", 1, (10, 10, 10))
+        self.background.blit(text, posicao)
+        self.background.blit(text2, posicao2)
+
     def showResult(self, indice):
 
         text = self.result.render("A Moeda falsa é: " + indice, 1, (10, 10, 10))
+        self.labelRepetir((200,320),(120,370))
         self.background.blit(text, (100,250))
 
     def showEnunciado(self):
