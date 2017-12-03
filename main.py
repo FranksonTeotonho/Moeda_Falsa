@@ -1,4 +1,4 @@
-import pygame,sys, os
+import pygame,sys, os, time
 
 #Inicializando pygame
 pygame.init()
@@ -20,15 +20,8 @@ def load_png(name):
 
     return image, image.get_rect()
 
-#Classe balanca
-class balance(pygame.sprite.Sprite):
-
-    def __init__(self):
-        print()
-
-
 #Algoritmo força bruta
-def moeda_forca_bruta(moedas):
+def moeda_forca_bruta(moedas,backgroud):
 
     n = len(moedas)
 
@@ -105,8 +98,25 @@ def main():
     # Fill background
     background = pygame.Surface(screen.get_size())
     background = background.convert()
-    backgroundImage, backgroundImageSquare = load_png("dollar.png")
-    background.blit(backgroundImage, backgroundImageSquare)
+    backgroundImage, backgroundImageRect = load_png("dollar.png")
+    background.blit(backgroundImage, backgroundImageRect)
+
+    #Loading Imagens
+
+    #Balanças Left
+    balanceLeft, balanceLeftRect = load_png("balance_left_heavy.png")
+    balanceLeftPile, balanceLeftPileRect  = load_png("balance_left_heavy_pile_coins.png")
+    balanceLeftSingle, balanceLeftSingle = load_png("balance_left_heavy_single coin.png")
+
+    #Balanças Right
+    balanceRight, balanceRightRect = load_png("balance_right_heavy.png")
+    balanceRightPile, balanceRightPileRect = load_png("balance_right_heavy_pile_coins.png")
+    balanceRightSingle, balanceRightSingle = load_png("balance_right_heavy_singlecoin.png")
+
+    #Balanças Equal
+    balanceEqual, balanceEqualRect = load_png("balance_equal.png")
+    balanceEqualPile, balanceEqualPileRect = load_png("balance_equal_pile_coins.png")
+    balanceEqualSingle, balanceEqualSingle = load_png("balance_equal_single_coin.png")
 
     # Blit everything to the screen
     screen.blit(background, (0, 0))
@@ -119,9 +129,22 @@ def main():
                 return
             elif event.type == pygame.KEYDOWN:
                 if(event.key == pygame.K_b):
-                    print("A moeda falsa esta na posição[B]: ", moeda_forca_bruta(moedas))
+                    time.sleep(2)
+                    background.blit(backgroundImage, backgroundImageRect)
+                    background.blit(balanceLeft, (75, 100))
                 if( event.key == pygame.K_d):
-                    print("A moeda falsa esta na posição[D]: ", moeda_decremento_conquista(moedas, 0, 18))
+                    time.sleep(2)
+                    background.blit(backgroundImage, backgroundImageRect)
+                    background.blit(balanceLeftPile, (75, 100))
+                if (event.key == pygame.K_LEFT):
+                    background.blit(backgroundImage, backgroundImageRect)
+                    background.blit(balanceLeft, (75, 100))
+                if (event.key == pygame.K_RIGHT):
+                    background.blit(backgroundImage, backgroundImageRect)
+                    background.blit(balanceRight, (75, 100))
+                if (event.key == pygame.K_UP):
+                    background.blit(backgroundImage, backgroundImageRect)
+                    background.blit(balanceEqual, (75, 100))
 
         screen.blit(background, (0, 0))
         pygame.display.flip()
