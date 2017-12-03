@@ -328,7 +328,7 @@ class Moeda_falsa():
                         204, 54), 1)
       if len(message) != 0:
         self.screen.blit(fontobject.render(message, 1, (0,0,0)),
-                    (x, y))
+                    (x+80, y+10))
       pygame.display.flip()
 
     def ask(self, question,x,y):
