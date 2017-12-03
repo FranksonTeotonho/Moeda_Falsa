@@ -282,12 +282,20 @@ class Moeda_falsa():
         text = self.result.render("A Moeda falsa é: " + indice, 1, (10, 10, 10))
         self.background.blit(text, (100,250))
 
+    def vetorInput(self, quatidade, posicao):
+        x = quatidade * [10]
+        x[posicao] = 11
+
+        return x
+
 #Funcao principal
 def main():
 
-    moedas = [10,10,10,11,10,10,10]
+    #moedas = [10,10,10,11,10,10,10]
 
     mf = Moeda_falsa()
+
+    moedas = mf.vetorInput(quatidade=7,posicao=3)
 
     # Event loop
     while 1:
