@@ -1,4 +1,4 @@
-import pygame,sys, os, time
+import pygame,sys, os, time,string
 
 #Inicializando pygame
 pygame.init()
@@ -282,33 +282,118 @@ class Moeda_falsa():
         text = self.result.render("A Moeda falsa é: " + indice, 1, (10, 10, 10))
         self.background.blit(text, (100,250))
 
+    def showEnunciado(self):
+        enunciado = "teste"
+        text = self.result.render(enunciado, 1, (10, 10, 10))
+        self.background.blit(text, (50, 50))
+
     def vetorInput(self, quatidade, posicao):
         x = quatidade * [10]
         x[posicao] = 11
 
         return x
 
+
+######TESTE############
+
+    def get_key(self):
+      while 1:
+        event = pygame.event.poll()
+        if event.type == pygame.KEYDOWN:
+          return event.key
+        elif(event.type == pygame.QUIT):
+            sys.exit()
+        else:
+          pass
+
+    def display_box(self, message,x,y):
+      "Print a message in a box in the middle of the screen"
+      fontobject = pygame.font.Font(None,40)
+      '''
+      pygame.draw.rect(self.screen, (255,255,255),
+                       ((self.screen.get_width() / 2) - 100,
+                        (self.screen.get_height() / 2) - 10,
+                        200,20), 0)
+      pygame.draw.rect(self.screen, (255,255,255),
+                       ((self.screen.get_width() / 2) - 102,
+                        (self.screen.get_height() / 2) - 12,
+                        204,24), 1)
+
+      '''
+      pygame.draw.rect(self.screen, (255, 255, 255),
+                       (x,y,
+                        200, 50), 0)
+      pygame.draw.rect(self.screen, (255, 255, 255),
+                       (x,y,
+                        204, 54), 1)
+      if len(message) != 0:
+        self.screen.blit(fontobject.render(message, 1, (0,0,0)),
+                    (x, y))
+      pygame.display.flip()
+
+    def ask(self, question,x,y):
+      "ask(screen, question) -> answer"
+      pygame.font.init()
+      current_string = []
+      self.display_box((question + "".join(current_string)),x,y)
+      while 1:
+        inkey = self.get_key()
+        if inkey == pygame.K_BACKSPACE:
+          current_string = current_string[0:-1]
+        elif inkey == pygame.K_RETURN:
+          break
+        elif inkey == pygame.K_MINUS:
+          current_string.append("_")
+        elif inkey <= 127:
+          current_string.append(chr(inkey))
+        self.display_box((question + "".join(current_string)),x,y)
+      return "".join(current_string)
+
 #Funcao principal
 def main():
 
-    #moedas = [10,10,10,11,10,10,10]
-    quantidade = 5
-    posicao = 3
+    #quantidade = 5
+    #posicao = 2
 
     mf = Moeda_falsa()
-
-    moedas = mf.vetorInput(quatidade=quantidade,posicao=posicao)
-    start = 0
-    end = quantidade - 1
     # Event loop
     while 1:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if(event.key == pygame.K_b):
+
+                    mf.resetScreen()
+                    mf.cleanScreen()
+                    mf.render()
+                    mf.resetScreen()
+                    mf.cleanScreen()
+                    mf.render()
+
+                    quantidade = int(mf.ask(question="", x=300, y=200))
+                    posicao = int(mf.ask(question="", x=300, y=300))
+                    moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
+
                     mf.moeda_forca_bruta(moedas)
+
                 elif(event.key == pygame.K_d):
+
+                    mf.resetScreen()
+                    mf.cleanScreen()
+                    mf.render()
+                    mf.resetScreen()
+                    mf.cleanScreen()
+                    mf.render()
+
+                    quantidade = int(mf.ask(question="", x=300, y=200))
+                    posicao = int(mf.ask(question="", x=300, y=300))
+
+                    moedas = mf.vetorInput(quatidade=quantidade, posicao=posicao)
+                    start = 0
+                    end = quantidade - 1
+
                     mf.moeda_decremento_conquista(moedas = moedas,start=start,end =end)
 
     mf.resetScreen()
